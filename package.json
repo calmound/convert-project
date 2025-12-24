@@ -1,0 +1,51 @@
+{
+  "name": "converter-tools",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "@radix-ui/react-accordion": "^1.2.12",
+    "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-separator": "^1.1.8",
+    "@radix-ui/react-slot": "^1.2.4",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "fuse.js": "^7.0.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.4",
+    "lucide-react": "^0.562.0",
+    "marked": "^17.0.1",
+    "next": "^15.1.0",
+    "pdf-lib": "^1.17.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.0",
+    "@types/marked": "^5.0.2",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^9",
+    "eslint-config-next": "^15.1.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
