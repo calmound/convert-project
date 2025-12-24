@@ -28,7 +28,8 @@ export async function imagesToPdf(files: File[], pageSize: 'a4' | 'letter'): Pro
   }
 
   const pdfBytes = await pdfDoc.save()
-  const blob = new Blob([pdfBytes], { type: 'application/pdf' })
+  const buffer = new Uint8Array(pdfBytes).buffer
+  const blob = new Blob([buffer], { type: 'application/pdf' })
   return {
     blob,
     filename: 'images.pdf',

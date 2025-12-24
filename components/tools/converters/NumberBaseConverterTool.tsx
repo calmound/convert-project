@@ -22,7 +22,7 @@ const baseOptions = [
   { value: '16', label: 'Hex (Base 16)' },
 ]
 
-const bitWidthOptions = ['8', '16', '32', '64']
+const bitWidthOptions = ['8', '16', '32']
 
 export function NumberBaseConverterTool() {
   const [fromValue, setFromValue] = useState('1010')
@@ -39,12 +39,9 @@ export function NumberBaseConverterTool() {
     const parsed = convertNumberBase(fromValue, parseInt(fromBase, 10), 10)
     if (!parsed.success) return ''
 
-    try {
-      const value = BigInt(parsed.output)
-      return toTwosComplement(value, parseInt(bitWidth, 10))
-    } catch {
-      return ''
-    }
+    const numeric = Number(parsed.output)
+    if (Number.isNaN(numeric)) return ''
+    return toTwosComplement(numeric, parseInt(bitWidth, 10))
   }, [bitWidth, fromValue, fromBase, result.success, toBase])
 
   const handleSwap = () => {

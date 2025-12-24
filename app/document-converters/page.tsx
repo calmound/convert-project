@@ -2,9 +2,26 @@ import { getToolsByCategory } from '@/data/tools'
 import { ToolGrid } from '@/components/tools/ToolGrid'
 import type { Metadata } from 'next'
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com'
+
 export const metadata: Metadata = {
   title: 'Document Converters - Free Online Document Format Conversion',
   description: 'Convert between different document and file formats. Excel to CSV, CSV to Excel, Markdown to HTML/PDF, and more.',
+  alternates: {
+    canonical: `${baseUrl}/document-converters`,
+  },
+  openGraph: {
+    title: 'Document Converters - Free Online Document Format Conversion',
+    description: 'Convert between different document and file formats. Excel to CSV, CSV to Excel, Markdown to HTML/PDF, and more.',
+    url: `${baseUrl}/document-converters`,
+    siteName: 'Converter Tools',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Document Converters - Free Online Document Format Conversion',
+    description: 'Convert between different document and file formats. Excel to CSV, CSV to Excel, Markdown to HTML/PDF, and more.',
+  },
 }
 
 export default function DocumentConvertersPage() {

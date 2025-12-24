@@ -1,41 +1,48 @@
 import { type ConversionResult } from '@/types/converter'
 
-const BASES = [2, 8, 10, 16] as const
+const BASES = [2, 8, 10, 16]
 
-function parseBigInt(input: string, base: number): bigint {
+function parseNumber(input: string, base: number): number {
   const trimmed = input.trim().toLowerCase()
   if (!trimmed) {
     throw new Error('Empty input')
   }
 
-  const sign = trimmed.startsWith('-') ? -1n : 1n
   const unsigned = trimmed.replace(/^[-+]/, '')
-
   if (!unsigned) {
     throw new Error('Invalid number')
   }
 
+  const isNegative = trimmed.startsWith('-')
+
   switch (base) {
     case 2:
       if (!/^[01]+$/.test(unsigned)) throw new Error('Invalid binary number')
-      return sign * BigInt(`0b${unsigned}`)
+      break
     case 8:
       if (!/^[0-7]+$/.test(unsigned)) throw new Error('Invalid octal number')
-      return sign * BigInt(`0o${unsigned}`)
+      break
     case 10:
       if (!/^\d+$/.test(unsigned)) throw new Error('Invalid decimal number')
-      return sign * BigInt(unsigned)
+      break
     case 16:
       if (!/^[0-9a-f]+$/.test(unsigned)) throw new Error('Invalid hexadecimal number')
-      return sign * BigInt(`0x${unsigned}`)
+      break
     default:
       throw new Error('Unsupported base')
   }
+
+  const parsed = parseInt(unsigned, base)
+  if (Number.isNaN(parsed)) {
+    throw new Error('Invalid number')
+  }
+
+  return isNegative ? -parsed : parsed
 }
 
-function formatBigInt(value: bigint, base: number): string {
+function formatNumber(value: number, base: number): string {
   if (base === 10) return value.toString(10)
-  return value.toString(base).toUpperCase()
+  return Math.abs(value).toString(base).toUpperCase()
 }
 
 export function convertNumberBase(input: string, fromBase: number, toBase: number): ConversionResult {
@@ -48,8 +55,9 @@ export function convertNumberBase(input: string, fromBase: number, toBase: numbe
       return { success: false, output: '', error: 'Unsupported base' }
     }
 
-    const value = parseBigInt(input, fromBase)
-    return { success: true, output: formatBigInt(value, toBase) }
+    const value = parseNumber(input, fromBase)
+    const formatted = formatNumber(value, toBase)
+    return { success: true, output: value < 0 ? `-${formatted}` : formatted }
   } catch (error) {
     return {
       success: false,
@@ -59,11 +67,9 @@ export function convertNumberBase(input: string, fromBase: number, toBase: numbe
   }
 }
 
-export function toTwosComplement(value: bigint, bitWidth: number): string {
-  const maxBits = BigInt(bitWidth)
-  if (bitWidth <= 0) return ''
-
-  const mask = (1n << maxBits) - 1n
-  const twos = (value & mask)
-  return twos.toString(2).padStart(bitWidth, '0')
+export function toTwosComplement(value: number, bitWidth: number): string {
+  if (bitWidth <= 0 || bitWidth > 32) return ''
+  const max = 2 ** bitWidth
+  const normalized = ((value % max) + max) % max
+  return Math.floor(normalized).toString(2).padStart(bitWidth, '0')
 }

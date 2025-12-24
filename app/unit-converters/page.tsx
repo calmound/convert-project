@@ -2,9 +2,26 @@ import { getToolsByCategory } from '@/data/tools'
 import { ToolGrid } from '@/components/tools/ToolGrid'
 import type { Metadata } from 'next'
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com'
+
 export const metadata: Metadata = {
   title: 'Unit Converters - Measurement Conversion Tools',
   description: 'Convert between length, weight, temperature, file size, and more units with free online tools.',
+  alternates: {
+    canonical: `${baseUrl}/unit-converters`,
+  },
+  openGraph: {
+    title: 'Unit Converters - Measurement Conversion Tools',
+    description: 'Convert between length, weight, temperature, file size, and more units with free online tools.',
+    url: `${baseUrl}/unit-converters`,
+    siteName: 'Converter Tools',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Unit Converters - Measurement Conversion Tools',
+    description: 'Convert between length, weight, temperature, file size, and more units with free online tools.',
+  },
 }
 
 export default function UnitConvertersPage() {

@@ -1,5 +1,28 @@
 import { allTools } from '@/data/tools'
 import { ToolGrid } from '@/components/tools/ToolGrid'
+import type { Metadata } from 'next'
+
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com'
+
+export const metadata: Metadata = {
+  title: 'Converter Tools - Free Online Converters',
+  description: 'Free online converter tools for documents, images, media, time, encoding, units, and numbers.',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'Converter Tools - Free Online Converters',
+    description: 'Free online converter tools for documents, images, media, time, encoding, units, and numbers.',
+    url: baseUrl,
+    siteName: 'Converter Tools',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Converter Tools - Free Online Converters',
+    description: 'Free online converter tools for documents, images, media, time, encoding, units, and numbers.',
+  },
+}
 
 export default function Home() {
 

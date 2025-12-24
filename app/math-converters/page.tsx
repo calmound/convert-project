@@ -2,9 +2,26 @@ import { getToolsByCategory } from '@/data/tools'
 import { ToolGrid } from '@/components/tools/ToolGrid'
 import type { Metadata } from 'next'
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com'
+
 export const metadata: Metadata = {
   title: 'Math Converters - Free Online Math Tools',
   description: 'Convert between different mathematical formats and notations. Decimals to fractions, percentages and more.',
+  alternates: {
+    canonical: `${baseUrl}/math-converters`,
+  },
+  openGraph: {
+    title: 'Math Converters - Free Online Math Tools',
+    description: 'Convert between different mathematical formats and notations. Decimals to fractions, percentages and more.',
+    url: `${baseUrl}/math-converters`,
+    siteName: 'Converter Tools',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Math Converters - Free Online Math Tools',
+    description: 'Convert between different mathematical formats and notations. Decimals to fractions, percentages and more.',
+  },
 }
 
 export default function MathConvertersPage() {

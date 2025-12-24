@@ -2,9 +2,26 @@ import { getToolsByCategory } from '@/data/tools'
 import { ToolGrid } from '@/components/tools/ToolGrid'
 import type { Metadata } from 'next'
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com'
+
 export const metadata: Metadata = {
   title: 'Text Converters - Free Online Text Tools',
   description: 'Convert and transform text between different formats and cases. Uppercase to lowercase, title case, sentence case and more.',
+  alternates: {
+    canonical: `${baseUrl}/text-converters`,
+  },
+  openGraph: {
+    title: 'Text Converters - Free Online Text Tools',
+    description: 'Convert and transform text between different formats and cases. Uppercase to lowercase, title case, sentence case and more.',
+    url: `${baseUrl}/text-converters`,
+    siteName: 'Converter Tools',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Text Converters - Free Online Text Tools',
+    description: 'Convert and transform text between different formats and cases. Uppercase to lowercase, title case, sentence case and more.',
+  },
 }
 
 export default function TextConvertersPage() {

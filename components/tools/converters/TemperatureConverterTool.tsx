@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -21,7 +21,7 @@ export function TemperatureConverterTool() {
   const [toUnit, setToUnit] = useState('f')
   const [toValue, setToValue] = useState('')
 
-  const handleFromValueChange = (value: string) => {
+  const handleFromValueChange = useCallback((value: string) => {
     setFromValue(value)
     if (value) {
       const num = parseFloat(value)
@@ -32,11 +32,11 @@ export function TemperatureConverterTool() {
     } else {
       setToValue('')
     }
-  }
+  }, [fromUnit, toUnit])
 
   useEffect(() => {
     handleFromValueChange(fromValue)
-  }, [fromUnit, toUnit])
+  }, [fromValue, fromUnit, toUnit, handleFromValueChange])
 
   const handleSwap = () => {
     setFromUnit(toUnit)

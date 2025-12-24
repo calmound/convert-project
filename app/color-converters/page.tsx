@@ -2,9 +2,26 @@ import { getToolsByCategory } from '@/data/tools'
 import { ToolGrid } from '@/components/tools/ToolGrid'
 import type { Metadata } from 'next'
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com'
+
 export const metadata: Metadata = {
   title: 'Color Converters - HEX RGB HSL Tools',
   description: 'Convert between HEX, RGB, HSL, and other color formats with free online tools.',
+  alternates: {
+    canonical: `${baseUrl}/color-converters`,
+  },
+  openGraph: {
+    title: 'Color Converters - HEX RGB HSL Tools',
+    description: 'Convert between HEX, RGB, HSL, and other color formats with free online tools.',
+    url: `${baseUrl}/color-converters`,
+    siteName: 'Converter Tools',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Color Converters - HEX RGB HSL Tools',
+    description: 'Convert between HEX, RGB, HSL, and other color formats with free online tools.',
+  },
 }
 
 export default function ColorConvertersPage() {

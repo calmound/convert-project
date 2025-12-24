@@ -2,9 +2,26 @@ import { getToolsByCategory } from '@/data/tools'
 import { ToolGrid } from '@/components/tools/ToolGrid'
 import type { Metadata } from 'next'
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com'
+
 export const metadata: Metadata = {
   title: 'Encoding Tools - Base64, URL, Unicode',
   description: 'Encode and decode text with Base64, URL encoding, and Unicode conversion tools.',
+  alternates: {
+    canonical: `${baseUrl}/encoding-tools`,
+  },
+  openGraph: {
+    title: 'Encoding Tools - Base64, URL, Unicode',
+    description: 'Encode and decode text with Base64, URL encoding, and Unicode conversion tools.',
+    url: `${baseUrl}/encoding-tools`,
+    siteName: 'Converter Tools',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Encoding Tools - Base64, URL, Unicode',
+    description: 'Encode and decode text with Base64, URL encoding, and Unicode conversion tools.',
+  },
 }
 
 export default function EncodingToolsPage() {

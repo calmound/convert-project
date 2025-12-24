@@ -2,9 +2,26 @@ import { getToolsByCategory } from '@/data/tools'
 import { ToolGrid } from '@/components/tools/ToolGrid'
 import type { Metadata } from 'next'
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com'
+
 export const metadata: Metadata = {
   title: 'Number Converters - Free Online Number Tools',
   description: 'Convert between number systems and formats. Roman numerals, binary, decimal, hexadecimal and more.',
+  alternates: {
+    canonical: `${baseUrl}/number-converters`,
+  },
+  openGraph: {
+    title: 'Number Converters - Free Online Number Tools',
+    description: 'Convert between number systems and formats. Roman numerals, binary, decimal, hexadecimal and more.',
+    url: `${baseUrl}/number-converters`,
+    siteName: 'Converter Tools',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Number Converters - Free Online Number Tools',
+    description: 'Convert between number systems and formats. Roman numerals, binary, decimal, hexadecimal and more.',
+  },
 }
 
 export default function NumberConvertersPage() {

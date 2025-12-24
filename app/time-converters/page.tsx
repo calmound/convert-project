@@ -2,9 +2,26 @@ import { getToolsByCategory } from '@/data/tools'
 import { ToolGrid } from '@/components/tools/ToolGrid'
 import type { Metadata } from 'next'
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.com'
+
 export const metadata: Metadata = {
   title: 'Time Converters - Timestamp & Date Tools',
   description: 'Convert between timestamps, dates, timezones, and time formats with free online tools.',
+  alternates: {
+    canonical: `${baseUrl}/time-converters`,
+  },
+  openGraph: {
+    title: 'Time Converters - Timestamp & Date Tools',
+    description: 'Convert between timestamps, dates, timezones, and time formats with free online tools.',
+    url: `${baseUrl}/time-converters`,
+    siteName: 'Converter Tools',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Time Converters - Timestamp & Date Tools',
+    description: 'Convert between timestamps, dates, timezones, and time formats with free online tools.',
+  },
 }
 
 export default function TimeConvertersPage() {
