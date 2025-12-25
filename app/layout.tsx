@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Script from "next/script"
 import "./globals.css"
 import { Header } from "@/components/layout/Header"
 
@@ -33,6 +34,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased flex flex-col min-h-screen">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-GJCQDY2GC0"
+          strategy="afterInteractive"
+        />
+        <Script id="ga-gtag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-GJCQDY2GC0');
+          `}
+        </Script>
         <Header />
         <main className="flex-1">
           {children}
