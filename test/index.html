@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Table Page</title>
+    <style>
+        :root {
+            --bg: #0b1020;
+            --panel: #111a33;
+            --text: #e8eeff;
+            --muted: #a9b6d6;
+            --border: rgba(232, 238, 255, 0.12);
+            --accent: #6ea8ff;
+            --accent-2: #73e6c2;
+            --danger: #ff6b6b;
+            --warning: #ffd166;
+        }
+
+        * { box-sizing: border-box; }
+        html, body { height: 100%; }
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            background: radial-gradient(1200px 800px at 20% 10%, rgba(110, 168, 255, 0.18), transparent 60%),
+                        radial-gradient(900px 600px at 85% 20%, rgba(115, 230, 194, 0.12), transparent 55%),
+                        var(--bg);
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 32px 16px 48px;
+        }
+
+        header {
+            display: flex;
+            gap: 16px;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 0.2px;
+        }
+
+        .subtitle {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .input {
+            appearance: none;
+            border: 1px solid var(--border);
+            background: rgba(17, 26, 51, 0.65);
+            color: var(--text);
+            border-radius: 10px;
+            padding: 10px 12px;
+            width: min(360px, 70vw);
+            outline: none;
+        }
+        .input:focus { border-color: rgba(110, 168, 255, 0.6); box-shadow: 0 0 0 3px rgba(110, 168, 255, 0.16); }
+
+        .btn {
+            border: 1px solid var(--border);
+            background: rgba(17, 26, 51, 0.65);
+            color: var(--text);
+            border-radius: 10px;
+            padding: 10px 12px;
+            cursor: pointer;
+        }
+        .btn:hover { border-color: rgba(232, 238, 255, 0.24); }
+
+        .card {
+            border: 1px solid var(--border);
+            background: rgba(17, 26, 51, 0.62);
+            border-radius: 14px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .meta {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .meta .left {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            min-width: 0;
+        }
+
+        .pill {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .table-wrap {
+            overflow: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            min-width: 720px;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background: rgba(17, 26, 51, 0.92);
+            backdrop-filter: blur(10px);
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tbody td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        tbody tr:hover { background: rgba(110, 168, 255, 0.08); }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            display: inline-block;
+        }
+
+        .dot.ok { background: var(--accent-2); }
+        .dot.warn { background: var(--warning); }
+        .dot.bad { background: var(--danger); }
+
+        .muted { color: var(--muted); }
+
+        .right { text-align: right; }
+
+        footer {
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        @media (max-width: 680px) {
+            header { flex-direction: column; align-items: flex-start; }
+            .hint { display: none; }
+            table { min-width: 640px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>基础表格页面</h1>
+                <p class="subtitle">一个自包含的静态 HTML 表格示例（支持搜索过滤、固定表头、横向滚动）。</p>
+            </div>
+            <div class="toolbar" aria-label="Table controls">
+                <label>
+                    <span class="muted" style="font-size:12px; display:block; margin-bottom:6px;">搜索</span>
+                    <input class="input" id="q" type="search" placeholder="按名称 / 邮箱 / 状态过滤…" autocomplete="off" />
+                </label>
+                <button class="btn" id="reset" type="button">重置</button>
+            </div>
+        </header>
+
+        <section class="card" aria-label="Data table">
+            <div class="meta">
+                <div class="left">
+                    <span class="pill" id="count">共 0 条</span>
+                    <span class="pill">示例数据</span>
+                </div>
+                <div class="hint">提示：表头会吸顶，窄屏可左右滑动</div>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 72px;">ID</th>
+                            <th>姓名</th>
+                            <th>邮箱</th>
+                            <th style="width: 140px;">状态</th>
+                            <th class="right" style="width: 120px;">积分</th>
+                            <th style="width: 160px;">更新时间</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rows">
+                        <!-- rows inserted by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer>纯前端示例：无依赖、无网络请求、无本地存储。</footer>
+    </div>
+
+    <script>
+        const data = [
+            { id: 1001, name: 'Alex Chen', email: 'alex.chen@example.com', status: 'Active', score: 1280, updatedAt: '2025-12-26' },
+            { id: 1002, name: 'Mei Lin', email: 'mei.lin@example.com', status: 'Active', score: 960, updatedAt: '2025-12-20' },
+            { id: 1003, name: 'Jordan Lee', email: 'jordan.lee@example.com', status: 'Pending', score: 420, updatedAt: '2025-12-18' },
+            { id: 1004, name: 'Sam Wu', email: 'sam.wu@example.com', status: 'Suspended', score: 60, updatedAt: '2025-11-30' },
+            { id: 1005, name: 'Yuki Tanaka', email: 'yuki.tanaka@example.com', status: 'Active', score: 1520, updatedAt: '2025-12-27' },
+            { id: 1006, name: 'Priya Patel', email: 'priya.patel@example.com', status: 'Pending', score: 310, updatedAt: '2025-12-05' },
+            { id: 1007, name: 'Diego Silva', email: 'diego.silva@example.com', status: 'Active', score: 740, updatedAt: '2025-12-12' },
+            { id: 1008, name: 'Noah Kim', email: 'noah.kim@example.com', status: 'Suspended', score: 95, updatedAt: '2025-10-21' },
+        ]
+
+        // 追加 100 条示例数据（确定性生成，便于演示/搜索）
+        ;(() => {
+            const firstNames = ['Ava', 'Ethan', 'Mia', 'Liam', 'Sophia', 'Lucas', 'Zoe', 'Leo', 'Emma', 'Kai']
+            const lastNames = ['Zhang', 'Wang', 'Li', 'Chen', 'Liu', 'Yang', 'Huang', 'Zhao', 'Wu', 'Zhou']
+            const statuses = ['Active', 'Pending', 'Suspended']
+
+            for (let i = 1; i <= 100; i++) {
+                const id = 2000 + i
+                const first = firstNames[i % firstNames.length]
+                const last = lastNames[(i * 3) % lastNames.length]
+                const name = `${first} ${last}`
+
+                const local = `${first}.${last}.${id}`.toLowerCase()
+                const email = `${local}@example.com`
+
+                const status = statuses[i % statuses.length]
+                const score = 50 + (i * 37) % 1900
+
+                // 生成 2025-09-01 到 2025-12-28 的日期分布
+                const month = 9 + Math.floor((i - 1) / 34) // 9..11，最后一些落到 12
+                const safeMonth = Math.min(month, 12)
+                const day = 1 + ((i * 5) % 28)
+                const updatedAt = `2025-${String(safeMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+
+                data.push({ id, name, email, status, score, updatedAt })
+            }
+        })()
+
+        const $rows = document.getElementById('rows')
+        const $q = document.getElementById('q')
+        const $count = document.getElementById('count')
+        const $reset = document.getElementById('reset')
+
+        function statusTag(status) {
+            const dotClass = status === 'Active' ? 'ok' : status === 'Pending' ? 'warn' : 'bad'
+            const label = status === 'Active' ? '正常' : status === 'Pending' ? '待审核' : '已停用'
+            return `<span class="tag"><span class="dot ${dotClass}"></span>${label}</span>`
+        }
+
+        function render(rows) {
+            $rows.innerHTML = rows.map((r) => {
+                const score = new Intl.NumberFormat().format(r.score)
+                return `
+                    <tr>
+                        <td class="muted">${r.id}</td>
+                        <td>${escapeHtml(r.name)}</td>
+                        <td class="muted">${escapeHtml(r.email)}</td>
+                        <td>${statusTag(r.status)}</td>
+                        <td class="right">${score}</td>
+                        <td class="muted">${escapeHtml(r.updatedAt)}</td>
+                    </tr>
+                `.trim()
+            }).join('')
+
+            $count.textContent = `共 ${rows.length} 条`
+        }
+
+        function escapeHtml(s) {
+            return String(s)
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#39;')
+        }
+
+        function filterRows(query) {
+            const q = query.trim().toLowerCase()
+            if (!q) return data
+            return data.filter((r) => {
+                return (
+                    String(r.id).includes(q) ||
+                    r.name.toLowerCase().includes(q) ||
+                    r.email.toLowerCase().includes(q) ||
+                    r.status.toLowerCase().includes(q)
+                )
+            })
+        }
+
+        $q.addEventListener('input', () => {
+            render(filterRows($q.value))
+        })
+
+        $reset.addEventListener('click', () => {
+            $q.value = ''
+            $q.focus()
+            render(data)
+        })
+
+        // initial render
+        render(data)
+    </script>
+</body>
+</html>
